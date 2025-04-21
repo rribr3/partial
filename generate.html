@@ -204,36 +204,46 @@
   const packingList = document.getElementById("packingList");
   const resultSection = document.getElementById("resultSection");
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
     packingList.innerHTML = "";
-
+  
+    const destination = document.getElementById("destination").value;
+    const startDate = document.getElementById("startDate").value;
+    const includeWeather = document.getElementById("weatherToggle").checked;
+  
     const baseItems = ["👕 T-shirts", "👖 Pants/Shorts", "🧦 Socks", "🧴 Toiletries", "📱 Phone + Charger", "🛂 Passport/ID"];
     const activities = [];
-
+  
     if (document.getElementById("hiking").checked) activities.push("🥾 Hiking Boots");
     if (document.getElementById("swimming").checked) activities.push("🩱 Swimsuit");
     if (document.getElementById("city").checked) activities.push("🕶️ Sunglasses");
     if (document.getElementById("photography").checked) activities.push("📸 Camera");
     if (document.getElementById("camping").checked) activities.push("🏕️ Tent & Sleeping Bag");
     if (document.getElementById("skiing").checked) activities.push("🎿 Ski Gear");
-
+  
     const packingPref = document.getElementById("packingPref").value;
     if (packingPref === "light") baseItems.pop();
     else if (packingPref === "heavy") baseItems.push("🧥 Extra Jackets", "🩳 Extra Underwear");
-
-    const allItems = [...baseItems, ...activities];
-
+  
+    let allItems = [...baseItems, ...activities];
+  
+    if (includeWeather) {
+      const weatherForecast = await fetchWeather(destination, startDate);
+      allItems.push(...weatherForecast);
+    }
+  
     allItems.forEach(item => {
       const li = document.createElement("li");
       li.className = "list-group-item";
       li.textContent = item;
       packingList.appendChild(li);
     });
-
+  
     resultSection.classList.remove("d-none");
     resultSection.scrollIntoView({ behavior: "smooth" });
   });
+  
 
   document.getElementById("exportPDF").addEventListener("click", function () {
     const { jsPDF } = window.jspdf;
@@ -245,7 +255,37 @@
     doc.save("PackingList.pdf");
   });
 
-  const countries = ["France", "Germany", "Spain", "Japan", "Canada", "Brazil", "India", "Australia", "South Africa", "United States"];
+  const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Argentina",
+  "Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
+  "Bangladesh","Barbados","Belarus","Belgium","Belize","Benin",
+  "Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil",
+  "Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon",
+  "Canada","Cape Verde","Central African Republic","Chad","Chile",
+  "China","Colombia","Comoros","Costa Rica","Croatia","Cuba",
+  "Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
+  "Dominican Republic","Ecuador","Egypt","El Salvador",
+  "Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji",
+  "Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
+  "Greece","Grenada","Guatemala","Guinea","Guyana","Haiti","Honduras",
+  "Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland",
+  "Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya",
+  "Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon",
+  "Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg",
+  "Madagascar","Malawi","Malaysia","Maldives","Mali","Malta",
+  "Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco",
+  "Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia",
+  "Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger",
+  "Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan",
+  "Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines",
+  "Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Lucia",
+  "Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles",
+  "Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands",
+  "Somalia","South Africa","South Korea","Spain","Sri Lanka","Sudan",
+  "Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan",
+  "Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia",
+  "Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates",
+  "United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
+  "Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
   const dropdown = document.getElementById("destination");
   countries.forEach(country => {
     const option = document.createElement("option");
@@ -253,6 +293,29 @@
     option.textContent = country;
     dropdown.appendChild(option);
   });
+
+  async function fetchWeather(destination, startDate) {
+    const apiKey = "833b96ac668f46f8aa990628252104";
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${destination}&dt=${startDate}&days=3`;
+  
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      if (data.forecast) {
+        const forecastDays = data.forecast.forecastday.map(day => {
+          return `🌡️ ${day.date}: ${day.day.condition.text}, High: ${day.day.maxtemp_c}°C, Low: ${day.day.mintemp_c}°C`;
+        });
+        return forecastDays;
+      } else {
+        return ["⚠️ Weather info unavailable."];
+      }
+    } catch (error) {
+      console.error("Weather fetch error:", error);
+      return ["⚠️ Could not retrieve weather data."];
+    }
+  }
+  
 </script>
 
 </body>
