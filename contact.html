@@ -99,7 +99,7 @@
         </div>
 
         <div class="col-lg-7" data-aos="fade-left">
-          <form>
+          <form onsubmit="saveContactForm(event)">
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="name" class="form-label">Your Name</label>
@@ -126,10 +126,7 @@
       </div>
 
       <div class="mt-5" data-aos="fade-up">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2656794377223!2d-122.41941548425946!3d37.77492977975962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085814b5e3b59a5%3A0x8f7318ba04d8df8d!2sSan%20Francisco!5e0!3m2!1sen!2sus!4v1617057612404!5m2!1sen!2sus" 
-          allowfullscreen="" loading="lazy">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.5901600736397!2d35.40803137452859!3d33.6159368406445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ee4dd7766e28f%3A0x3d5dedfb4fddb1df!2sIslamic%20University%20of%20Lebanon%20%2CWardaniyeh!5e0!3m2!1sen!2slb!4v1745263949087!5m2!1sen!2slb" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
   </section>
@@ -145,5 +142,27 @@
   <script>
     AOS.init();
   </script>
+  <script>
+    function saveContactForm(event) {
+      event.preventDefault(); 
+  
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+  
+      if (!name || !email || !subject || !message) {
+        alert("Please fill out all fields.");
+        return;
+      }
+  
+      const formData = { name, email, subject, message, time: new Date().toISOString() };
+      localStorage.setItem("packpalContactMessage", JSON.stringify(formData));
+  
+      alert("Your message has been saved!");
+      event.target.reset(); 
+    }
+  </script>
+  
 </body>
 </html>
