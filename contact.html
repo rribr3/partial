@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -51,6 +52,7 @@
       border-radius: 10px;
     }
   </style>
+
 </head>
 <body>
 
@@ -81,54 +83,57 @@
         <p class="text-muted">We’d love to hear your feedback or help with any questions.</p>
       </div>
 
-      <div class="row g-5">
-        <div class="col-lg-5" data-aos="fade-right">
-          <div class="contact-info">
-            <h5>📍 Address</h5>
-            <p>Werdaniyeh, Lebanon</p>
+```
+  <div class="row g-5">
+    <div class="col-lg-5" data-aos="fade-right">
+      <div class="contact-info">
+        <h5>📍 Address</h5>
+        <p>Werdaniyeh, Lebanon</p>
 
-            <h5>📞 Phone</h5>
-            <p>+960 70 637 902</p>
+        <h5>📞 Phone</h5>
+        <p>+960 70 637 902</p>
 
-            <h5>✉️ Email</h5>
-            <p>support@packpal.com</p>
+        <h5>✉️ Email</h5>
+        <p>support@packpal.com</p>
 
-            <h5>🕒 Hours</h5>
-            <p>Mon - Fri: 9:00 AM – 6:00 PM</p>
-          </div>
-        </div>
-
-        <div class="col-lg-7" data-aos="fade-left">
-          <form onsubmit="saveContactForm(event)">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="name" class="form-label">Your Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Full Name" required>
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label">Your Email</label>
-                <input type="email" id="email" class="form-control" placeholder="mail@example.com" required>
-              </div>
-              <div class="col-12">
-                <label for="subject" class="form-label">Subject</label>
-                <input type="text" id="subject" class="form-control" placeholder="I have a question about..." required>
-              </div>
-              <div class="col-12">
-                <label for="message" class="form-label">Message</label>
-                <textarea id="message" class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
-              </div>
-              <div class="col-12 text-end">
-                <button type="submit" class="btn btn-dark-green px-4">Send Message</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="mt-5" data-aos="fade-up">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.5901600736397!2d35.40803137452859!3d33.6159368406445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ee4dd7766e28f%3A0x3d5dedfb4fddb1df!2sIslamic%20University%20of%20Lebanon%20%2CWardaniyeh!5e0!3m2!1sen!2slb!4v1745263949087!5m2!1sen!2slb" allowfullscreen="" loading="lazy"></iframe>
+        <h5>🕒 Hours</h5>
+        <p>Mon - Fri: 9:00 AM – 6:00 PM</p>
       </div>
     </div>
+
+    <div class="col-lg-7" data-aos="fade-left">
+      <form onsubmit="saveContactForm(event)">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Full Name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" class="form-control" placeholder="mail@example.com" required>
+          </div>
+          <div class="col-12">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" id="subject" class="form-control" placeholder="I have a question about..." required>
+          </div>
+          <div class="col-12">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-dark-green px-4">Send Message</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mt-5" data-aos="fade-up">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.5901600736397!2d35.40803137452859!3d33.6159368406445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ee4dd7766e28f%3A0x3d5dedfb4fddb1df!2sIslamic%20University%20of%20Lebanon%20%2CWardaniyeh!5e0!3m2!1sen!2slb!4v1745263949087!5m2!1sen!2slb" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</div>
+```
+
   </section>
 
   <div class="footer">
@@ -138,31 +143,12 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
     AOS.init();
   </script>
-  <script>
-    function saveContactForm(event) {
-      event.preventDefault(); 
-  
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const subject = document.getElementById("subject").value.trim();
-      const message = document.getElementById("message").value.trim();
-  
-      if (!name || !email || !subject || !message) {
-        alert("Please fill out all fields.");
-        return;
-      }
-  
-      const formData = { name, email, subject, message, time: new Date().toISOString() };
-      localStorage.setItem("packpalContactMessage", JSON.stringify(formData));
-  
-      alert("Your message has been saved!");
-      event.target.reset(); 
-    }
-  </script>
-  
+
 </body>
 </html>
