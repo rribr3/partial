@@ -54,15 +54,27 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-light mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold fs-3" href="index.html" style="color: #2c3e50; text-decoration: none; padding-left:50px">
-        🧳 PackPal
-      </a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <span class="me-2" style="font-size: 1.2rem;">🧳</span>
+        <a class="navbar-brand fw-bold mb-0" href="index.html" style="color: #14532d">PackPal</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Generate List</a></li>
+          <li class="nav-item"><a class="nav-link" href="tips.html">Tips</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
   
-  <div class="container py-5">
+  <div class="container py-5 mt-5 pt-4">
     <h1 class="text-center section-title mb-4">🎒 Generate Your Packing List</h1>
 
     <form class="bg-white p-4 rounded shadow-sm">
@@ -143,36 +155,59 @@
       </div>
 
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-fun btn-lg">✨ Generate List</button>
+        <button type="button" class="btn btn-fun btn-lg" data-bs-toggle="modal" data-bs-target="#generationModal">
+          ✨ Generate List
+        </button>
       </div>
-    </form>
-
-    <!-- Visible result section for demo purposes -->
-    <div id="resultSection" class="mt-5" data-aos="fade-up">
-      <div class="card border-0 shadow card-glow">
-        <div class="card-body">
-          <h3 class="card-title text-center mb-3">📦 Your Personalized Packing List</h3>
-          <ul class="list-group list-group-flush packing-list" id="packingList">
-            <li class="list-group-item">🧥 Jacket</li>
-            <li class="list-group-item">👕 T-Shirts</li>
-            <li class="list-group-item">🩲 Swimwear</li>
-            <li class="list-group-item">📷 Camera</li>
-            <li class="list-group-item">🧴 Sunscreen</li>
-          </ul>
-          <div class="text-center mt-3">
-            <button class="btn btn-outline-success">🖨️ Export as PDF</button>
+      <div class="modal fade" id="generationModal" tabindex="-1" aria-labelledby="generationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="generationModalLabel">Your Packing List is Ready!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-info">
+                Based on your selections, we've generated this customized list. You can edit items before saving.
+              </div>
+              <ul class="list-group packing-list" id="packingList">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  � Light Jacket
+                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  👕 3 T-Shirts
+                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  🏊 Swimwear
+                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  📷 Camera
+                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  🧴 Sunscreen SPF 50
+                  <button class="btn btn-sm btn-outline-danger">Remove</button>
+                </li>
+              </ul>
+              <div class="mt-3">
+                <label for="addItem" class="form-label">Add custom item:</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="addItem" placeholder="e.g. Travel adapter">
+                  <button class="btn btn-dark-green">Add</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-fun">Save & Export</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="text-end mt-4">
-      🌐 
-      <select id="languageSelector" class="form-select w-auto d-inline">
-        <option value="en" selected>English</option>
-        <option value="fr">Français</option>
-      </select>
-    </div>
+    </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
